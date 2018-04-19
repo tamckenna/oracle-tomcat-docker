@@ -20,7 +20,8 @@
 
 ## Pull latest image:
     docker pull tmckenna/oraclejava-tomcat:latest
-## Local Build Scripts
+## Builds
+* Assuming java/tomcat install packages are in the `src/install/` directory
 ### Linux/MacOS Bash:
     chmod +x build.sh && ./build.sh IMAGE_NAME
 ### Windows Powershell:
