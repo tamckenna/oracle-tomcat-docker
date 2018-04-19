@@ -1,2 +1,4 @@
 readme.md linguist-language=shell
 *.gitkeep linguist-language=shell
+build.sh linguist-language=shell
+build.ps1 linguist-language=shell
