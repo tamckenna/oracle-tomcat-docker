@@ -1,0 +1,40 @@
+FROM tmckenna/ubuntu-base:16.04
+LABEL maintainer="tamr43@gmail.com"
+
+ENV TOMCAT_VERSION 7.0.86
+ENV JAVA_VERSION 6.0.45
+
+# Install Oracle Server JRE 6
+COPY install/java/jre-6u45-linux-x64.bin /tmp/jre.bin
+RUN \
+	cd /tmp/ && \
+	sh /tmp/jre.bin && \
+	rm -f /tmp/jre.bin && \
+	mv /tmp/jre1.6.0_45/ /opt/java/ && \
+	cd /
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /opt/java
+
+# Install Tomcat
+COPY install/tomcat/apache-tomcat-7.0.86.tar.gz /tmp/tomcat.tar.gz
+RUN \
+	mkdir /opt/tomcat && \
+	tar xzvf /tmp/tomcat.tar.gz -C /opt/tomcat --strip-components=1 && \
+	rm -f /tmp/tomcat.tar.gz && \
+	rm -rf /opt/tomcat/webapps/examples && \
+	rm -rf /opt/tomcat/webapps/docs && \
+	rm -rf /opt/tomcat/webapps/ROOT
+
+# Add custom xml configurations
+COPY config/tomcat-users.xml /opt/tomcat/conf/tomcat-users.xml
+COPY config/context.xml /opt/tomcat/webapps/manager/META-INF/context.xml
+
+ENV CATALINA_HOME /opt/tomcat
+ENV PATH $PATH:$CATALINA_HOME/bin
+
+EXPOSE 8080
+WORKDIR /opt/tomcat
+
+# Launch Tomcat
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]

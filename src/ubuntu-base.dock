@@ -1,0 +1,8 @@
+FROM ubuntu:16.04
+LABEL maintainer="tamr43@gmail.com"
+
+# Fix sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Install dependencies
+RUN apt-get update && apt-get install git build-essential curl wget software-properties-common zip unzip -y
