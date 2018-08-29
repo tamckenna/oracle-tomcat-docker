@@ -23,6 +23,6 @@
 ## Builds
 * Assuming java/tomcat install packages are in the `src/install/` directory
 ### Linux/MacOS Bash:
-    chmod +x build.sh && ./build.sh IMAGE_NAME
+    ./build.sh IMAGE_NAME
 ### Windows Powershell:
     .\build.ps1 IMAGE_NAME
